@@ -15,7 +15,7 @@ function setup() {
 }
 
 function draw() {
-  background("black");
+  // background("black");
 
   for (let y=0; y<ROWS; y++){
     for (let x=0; x<COLS; x++){
