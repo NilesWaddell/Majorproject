@@ -8,9 +8,13 @@ let grid;
 let cellWidth = 30;
 let cellHeight = 30;
 let letterT = loadImage("assets/T.png");
-let letterH, letterE, letterR, letterI, letterS, letterL, letterN, letterO, letterG, letterA, letterM, sectionOne, whatSection; 
+let letterH, letterE, letterR, letterI, letterS, letterL, letterN, letterO, letterG, letterA, letterM, sectionOne, whatSection, empty; 
+let levelBackground;
+let tilesHigh, tilesWide;
+let tileWidth, tileHeight;
 
 function preload() {
+  levelBackground = loadImage("assets/Black.jpg");
   letterT = loadImage("assets/T.png");
   letterH = loadImage("assets/H.png");
   letterE = loadImage("assets/E.png");
@@ -25,9 +29,15 @@ function preload() {
   letterM = loadImage("assets/M.png");
   sectionOne = "assets/Section 1.txt";
   whatSection = loadStrings(sectionOne);
+}
 
 function setup() {
-  createCanvas(1920, 1080);
+  createCanvas(1000, 750);
+  tilesHigh = whatSection.length;
+  tilesWide = whatSection[0].length;
+
+  tileWidth = width / tilesWide;
+  tileHeight = height / tilesHigh;
 
   grid = createEmptyGrid(COLS, ROWS);
 }
@@ -55,7 +65,7 @@ function display() {
 
   for (let y = 0; y < tilesHigh; y++) {
     for (let x = 0; x < tilesWide; x++) {
-      showTile(tiles[x][y], x, y);
+      showTile(grid[x][y], x, y);
     }
   }
 }
