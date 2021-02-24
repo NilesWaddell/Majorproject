@@ -7,8 +7,7 @@ const ROWS = 18;
 let grid;
 let cellWidth = 30;
 let cellHeight = 30;
-let letterT = loadImage("assets/T.png");
-let letterH, letterE, letterR, letterI, letterS, letterL, letterN, letterO, letterG, letterA, letterM, sectionOne, whatSection, empty; 
+let letterT, letterH, letterE, letterR, letterI, letterS, letterL, letterN, letterO, letterG, letterA, letterM, sectionOne, lines, tiles, empty; 
 let levelBackground;
 let tilesHigh, tilesWide;
 let tileWidth, tileHeight;
@@ -28,20 +27,29 @@ function preload() {
   letterA = loadImage("assets/A.png");
   letterM = loadImage("assets/M.png");
   sectionOne = "assets/Section 1.txt";
-  whatSection = loadStrings(sectionOne);
+  lines = loadStrings(sectionOne);
 }
 
 function setup() {
-  createCanvas(1000, 750);
-  tilesHigh = whatSection.length;
-  tilesWide = whatSection[0].length;
-
-  tileWidth = width / tilesWide;
-  tileHeight = height / tilesHigh;
-
-  grid = createEmptyGrid(COLS, ROWS);
+  function setup() {
+    createCanvas(1000, 750);
+  
+    tilesHigh = lines.length;
+    tilesWide = lines[0].length;
+  
+    tileWidth = width / tilesWide;
+    tileHeight = height / tilesHigh;
+  
+    tiles = createEmptyGrid(tilesWide, tilesHigh);
+  
+    for (let y = 0; y < tilesHigh; y++) {
+      for (let x = 0; x < tilesWide; x++) {
+        let tileType = lines[y][x];
+        tiles[x][y] = tileType;
+      }
+    }
+  }
 }
-
 function draw() {
   // background("black");
 
@@ -159,13 +167,13 @@ function showTile(location, x, y) {
 }
 
 
-function createEmptyGrid(COLS, ROWS) {
-  let emptyGrid = [];
-  for (let y=0; y<ROWS; y++) {
-    emptyGrid.push([]);
-    for(let x=0; x<COLS; x++) {
-      emptyGrid[y].push(0);
+function createEmptyGrid(cols, rows) {
+  let randomGrid = [];
+  for (let x = 0; x < cols; x++) {
+    randomGrid.push([]);
+    for (let y = 0; y < rows; y++) {
+      randomGrid[x].push(0);
     }
   }
-  return emptyGrid;
+  return randomGrid;
 }
