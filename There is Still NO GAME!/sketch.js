@@ -2,11 +2,29 @@
 // Niles
 // Feb 24th 2021
 
-const COLS = 32;
+const COLS = 24;
 const ROWS = 18;
 let grid;
-let cellWidth = 60;
-let cellHeight = 60;
+let cellWidth = 30;
+let cellHeight = 30;
+let letterT = loadImage("assets/T.png");
+let letterH, letterE, letterR, letterI, letterS, letterL, letterN, letterO, letterG, letterA, letterM, sectionOne, whatSection; 
+
+function preload() {
+  letterT = loadImage("assets/T.png");
+  letterH = loadImage("assets/H.png");
+  letterE = loadImage("assets/E.png");
+  letterR = loadImage("assets/R.png");
+  letterI = loadImage("assets/I.png");
+  letterS = loadImage("assets/S.png");
+  letterL = loadImage("assets/L.png");
+  letterN = loadImage("assets/N.png");
+  letterO = loadImage("assets/O.png");
+  letterG = loadImage("assets/G.png");
+  letterA = loadImage("assets/A.png");
+  letterM = loadImage("assets/M.png");
+  sectionOne = "assets/Section 1.txt";
+  whatSection = loadStrings(sectionOne);
 
 function setup() {
   createCanvas(1920, 1080);
@@ -42,17 +60,18 @@ function display() {
   }
 }
 
-function mousePressed() {
-  let x = Math.floor(mouseX / cellWidth);
-  let y = Math.floor(mouseY / cellHeight);
 
-  if (grid[y][x] === 1) {
-    grid[y][x] = 0;
-  }
-  else if (grid[y][x] === 0 ) {
-    grid[y][x] = 1;
-  }
-}
+// function mousePressed() {
+//   let x = Math.floor(mouseX / cellWidth);
+//   let y = Math.floor(mouseY / cellHeight);
+
+//   if (grid[y][x] === 1) {
+//     grid[y][x] = 0;
+//   }
+//   else if (grid[y][x] === 0 ) {
+//     grid[y][x] = 1;
+//   }
+// }
 
 class Paint { //the particles that come off the title
   constructor() {
@@ -88,23 +107,41 @@ class Paint { //the particles that come off the title
 }
 
 function showTile(location, x, y) {
-  if (location === "#") {
-    image(platform, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+  if (location === "A") {
+    image(letterA, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
   }
-  else if (location === "C") {
-    image(coin, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+  else if (location === "E") {
+    image(letterE, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
   }
-  else if (location === "B") {
-    image(box, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+  else if (location === "G") {
+    image(letterG, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
   }
-  else if (location === "F") {
-    image(fly, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+  else if (location === "H") {
+    image(letterH, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
   }
-  else if (location === "P") {
-    image(p1, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+  else if (location === "I") {
+    image(letterI, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+  }
+  else if (location === "L") {
+    image(letterL, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+  }
+  else if (location === "M") {
+    image(letterM, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+  }
+  else if (location === "N") {
+    image(letterN, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+  }
+  else if (location === "O") {
+    image(letterO, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+  }
+  else if (location === "R") {
+    image(letterR, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
   }
   else if (location === "S") {
-    image(slime, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+    image(letterS, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+  }
+  else if (location === "T") {
+    image(letterT, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
   }
   else {
     image(empty, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
