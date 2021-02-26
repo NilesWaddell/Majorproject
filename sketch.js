@@ -75,7 +75,7 @@ function display() {
 function mousePressed() {
   if (whatSection === sectionA) {
     whatSection = sectionB;
-    let particle = new Paint(mouseX, mouseY);
+    let particle = new Paint(mouseX, mouseY); WORK HERE!!!!
   }
   else if (whatSection === sectionB) {
     whatSection = sectionC;
