@@ -7,12 +7,14 @@ const ROWS = 18;
 let grid;
 let cellWidth = 30;
 let cellHeight = 30;
-let letterT, letterH, letterE, letterR, letterI, letterS, letterL, letterN, letterO, letterG, letterA, letterM, sectionOne, lines, tiles, empty; 
+let letterT, letterH, letterE, letterR, letterI, letterS, letterL, letterN, letterO, letterG, letterA, letterM, lines, tiles, empty, sectionA, 
+sectionB, sectionC, sectionD; 
 let levelBackground;
 let tilesHigh, tilesWide;
-let tileWidth, tileHeight;
+let tileWidth, tileHeight; 
+let whatSection;
 
-function preload() {
+function preload() { //used to load all my assets
   levelBackground = loadImage("assets/Black.jpg");
   letterT = loadImage("assets/T.png");
   letterH = loadImage("assets/H.png");
@@ -26,46 +28,37 @@ function preload() {
   letterG = loadImage("assets/G.png");
   letterA = loadImage("assets/A.png");
   letterM = loadImage("assets/M.png");
-  sectionOne = "assets/Section 1.txt";
-  lines = loadStrings(sectionOne);
+  empty = loadImage("assets/Black again.jpg");
+  sectionA = "assets/Section 1.txt";
+  sectionB = "assets/Section 1b.txt";
+  sectionC = "assets/Section 1c.txt";
+  sectionD = "assets/Section 1d.txt";
+  whatSection = sectionA;
+  lines = loadStrings(whatSection);
 }
 
-function setup() {
-  function setup() {
-    createCanvas(1000, 750);
+function setup() { //creates the grid and canvas
+  createCanvas(1000, 750);
   
-    tilesHigh = lines.length;
-    tilesWide = lines[0].length;
+  tilesHigh = lines.length;
+  tilesWide = lines[0].length;
   
-    tileWidth = width / tilesWide;
-    tileHeight = height / tilesHigh;
+  tileWidth = width / tilesWide;
+  tileHeight = height / tilesHigh;
   
-    tiles = createEmptyGrid(tilesWide, tilesHigh);
+  tiles = createEmptyGrid(tilesWide, tilesHigh);
   
-    for (let y = 0; y < tilesHigh; y++) {
-      for (let x = 0; x < tilesWide; x++) {
-        let tileType = lines[y][x];
-        tiles[x][y] = tileType;
-      }
+  for (let y = 0; y < tilesHigh; y++) {
+    for (let x = 0; x < tilesWide; x++) {
+      let tileType = lines[y][x];
+      tiles[x][y] = tileType;
     }
   }
 }
+
 function draw() {
-  // background("black");
-
-  for (let y=0; y<ROWS; y++){
-    for (let x=0; x<COLS; x++){
-      if (grid[y][x] === 0){
-        fill("black");
-      }
-      
-      else {
-        fill("white");
-      }
-      rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-    }
-
-  }
+  background("black");
+  display();
 }
 
 function display() {
@@ -73,54 +66,45 @@ function display() {
 
   for (let y = 0; y < tilesHigh; y++) {
     for (let x = 0; x < tilesWide; x++) {
-      showTile(grid[x][y], x, y);
+      showTile(tiles[x][y], x, y);
     }
   }
 }
 
 
-// function mousePressed() {
-//   let x = Math.floor(mouseX / cellWidth);
-//   let y = Math.floor(mouseY / cellHeight);
-
-//   if (grid[y][x] === 1) {
-//     grid[y][x] = 0;
-//   }
-//   else if (grid[y][x] === 0 ) {
-//     grid[y][x] = 1;
-//   }
-// }
+function mousePressed() {
+  if (whatSection === sectionA) {
+    whatSection = sectionB;
+    let particle = new Paint(mouseX, mouseY);
+  }
+  else if (whatSection === sectionB) {
+    whatSection = sectionC;
+  }
+  else if (whatSection === sectionC) {
+    whatSection = sectionD;
+  }
+}
 
 class Paint { //the particles that come off the title
   constructor() {
     this.x = width/2;
     this.y = height/2;
-    this.dx = random(-5, 5);
-    this.dy = random(-5, 5);
+    this.dx = random (-2, 2);
+    this.dy = 10;
     this.size = 10;
-    this.colour = "white";
+    this.colour = "yellow";
   }
-  display() {
+  displayBall() {
     noStroke();
     fill(this.colour);
     ellipse(this.x, this.y, this.size, this.size);
   }
 
   move() { //stop after momentum check
-    this.x += this.dx;
-    this.y += this.dy;
-    if (this.dy < 0) {
-      this.dy++;
-    }
-    if (this.dy > 0) {
-      this.dy--;
-    }
-    if (this.dx < 0) {
-      this.dx++;
-    }
-    if (this.dx > 0) {
-      this.dx--;
-    }
+    if (this.y < height - 10) {
+      this.x -= 2;
+      this.y += 10;
+    } 
   }
 }
 
