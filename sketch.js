@@ -49,12 +49,7 @@ function setup() { //creates the grid and canvas
   
   tiles = createEmptyGrid(tilesWide, tilesHigh);
   
-  for (let y = 0; y < tilesHigh; y++) {
-    for (let x = 0; x < tilesWide; x++) {
-      let tileType = lines[y][x];
-      tiles[x][y] = tileType;
-    }
-  }
+  
 }
 
 function draw() {
@@ -64,6 +59,14 @@ function draw() {
     if (whatSection != sectionD) {
       dropplets[i].move;
       dropplets[i].displayBall
+    }
+  }
+  fill("white")
+  ellipse(width/2, height-10, 10, 10);
+  for (let y = 0; y < tilesHigh; y++) {
+    for (let x = 0; x < tilesWide; x++) {
+      let tileType = lines[y][x];
+      tiles[x][y] = tileType;
     }
   }
 }
@@ -92,15 +95,18 @@ function mousePressed() {
     }
   }
   
-  // if (whatSection === sectionA) {
-  //   whatSection = sectionB;
-  // }
-  // else if (whatSection === sectionB) {
-  //   whatSection = sectionC;
-  // }
-  // else if (whatSection === sectionC) {
-  //   whatSection = sectionD;
-  // }
+  if (whatSection === sectionA) {
+    whatSection = sectionB;
+    lines = loadStrings(whatSection);
+  }
+  else if (whatSection === sectionB) {
+    whatSection = sectionC;
+    lines = loadStrings(whatSection);
+  }
+  else{
+    whatSection = sectionD;
+    lines = loadStrings(whatSection);
+  }
   
 }
 
