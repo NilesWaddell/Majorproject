@@ -13,6 +13,7 @@ let levelBackground;
 let tilesHigh, tilesWide;
 let tileWidth, tileHeight; 
 let whatSection;
+let dropplets = [];
 
 function preload() { //used to load all my assets
   levelBackground = loadImage("assets/Black.jpg");
@@ -59,6 +60,12 @@ function setup() { //creates the grid and canvas
 function draw() {
   background("black");
   display();
+  for (let i=dropplets.length-1; i>=0; i--){
+    if (whatSection != sectionD) {
+      dropplets[i].move;
+      dropplets[i].displayBall
+    }
+  }
 }
 
 function display() {
@@ -73,22 +80,34 @@ function display() {
 
 
 function mousePressed() {
-  if (whatSection === sectionA) {
-    whatSection = sectionB;
-    let particle = new Paint(mouseX, mouseY); WORK HERE!!!!
+  let particleNum = 4;
+  let theta = 0;
+  for (let i=0; i<particleNum; i++) {
+    let xSpeed = cos(theta)*2 + random(-0.5, 0.5);
+    let ySpeed = sin(theta)*2 + random(-0.5, 0.5);
+    let particle = new Paint(mouseX, mouseY, this.dx, this.dy, 255, 0, 0, 255);
+    dropplets.push(particle);
+    if (particle >= 12) {
+      splice(i, 4)
+    }
   }
-  else if (whatSection === sectionB) {
-    whatSection = sectionC;
-  }
-  else if (whatSection === sectionC) {
-    whatSection = sectionD;
-  }
+  
+  // if (whatSection === sectionA) {
+  //   whatSection = sectionB;
+  // }
+  // else if (whatSection === sectionB) {
+  //   whatSection = sectionC;
+  // }
+  // else if (whatSection === sectionC) {
+  //   whatSection = sectionD;
+  // }
+  
 }
 
 class Paint { //the particles that come off the title
   constructor() {
-    this.x = width/2;
-    this.y = height/2;
+    this.x = mouseX;
+    this.y = mouseY;
     this.dx = random (-2, 2);
     this.dy = 10;
     this.size = 10;
@@ -102,8 +121,8 @@ class Paint { //the particles that come off the title
 
   move() { //stop after momentum check
     if (this.y < height - 10) {
-      this.x -= 2;
-      this.y += 10;
+      this.x += this.dx;
+      this.y += this.dy;
     } 
   }
 }
