@@ -61,14 +61,6 @@ function draw() {
       dropplets[i].displayBall
     }
   }
-  fill("white")
-  ellipse(width/2, height-10, 10, 10);
-  for (let y = 0; y < tilesHigh; y++) {
-    for (let x = 0; x < tilesWide; x++) {
-      let tileType = lines[y][x];
-      tiles[x][y] = tileType;
-    }
-  }
 }
 
 function display() {
@@ -79,10 +71,17 @@ function display() {
       showTile(tiles[x][y], x, y);
     }
   }
+  for (let y = 0; y < tilesHigh; y++) {
+    for (let x = 0; x < tilesWide; x++) {
+      let tileType = lines[y][x];
+      tiles[x][y] = tileType;
+    }
+  }
 }
 
 
 function mousePressed() {
+  // particle math
   let particleNum = 4;
   let theta = 0;
   for (let i=0; i<particleNum; i++) {
@@ -94,7 +93,7 @@ function mousePressed() {
       splice(i, 4)
     }
   }
-  
+  // scene check
   if (whatSection === sectionA) {
     whatSection = sectionB;
     lines = loadStrings(whatSection);
@@ -133,7 +132,7 @@ class Paint { //the particles that come off the title
   }
 }
 
-function showTile(location, x, y) {
+function showTile(location, x, y) { //shows the scene
   if (location === "A") {
     image(letterA, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
   }
@@ -176,7 +175,7 @@ function showTile(location, x, y) {
 }
 
 
-function createEmptyGrid(cols, rows) {
+function createEmptyGrid(cols, rows) { //the sections of the scene
   let randomGrid = [];
   for (let x = 0; x < cols; x++) {
     randomGrid.push([]);
