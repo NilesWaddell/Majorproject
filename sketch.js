@@ -1,6 +1,6 @@
 // Major Project "There is Still NO GAME!"
 // Niles
-// Feb 24th 2021
+// Mar 1st 2021
 
 const COLS = 24;
 const ROWS = 18;
@@ -58,7 +58,7 @@ function draw() {
   for (let i=dropplets.length-1; i>=0; i--){
     if (whatSection != sectionD) {
       dropplets[i].move;
-      dropplets[i].displayBall
+      dropplets[i].displayBall;
     }
   }
 }
@@ -71,10 +71,13 @@ function display() {
       showTile(tiles[x][y], x, y);
     }
   }
+  
   for (let y = 0; y < tilesHigh; y++) {
+    if (lines[y] !== undefined) {
     for (let x = 0; x < tilesWide; x++) {
       let tileType = lines[y][x];
       tiles[x][y] = tileType;
+    }
     }
   }
 }
