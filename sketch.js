@@ -55,11 +55,18 @@ function setup() { //creates the grid and canvas
 function draw() {
   background("black");
   display();
-  for (let i=dropplets.length-1; i>=0; i--){
-    if (whatSection != sectionD) {
-      dropplets[i].move;
-      dropplets[i].displayBall;
+  for (let i=0; i<dropplets.length; i++) {
+
+    //collision check
+    for (let j=0; j<dropplets.length; j++) {
+      //don't check self for collision
+      if (i !== j) {
+        dropplets[i].checkIfCollidingWith(dropplets[j]);
+      }
     }
+
+    dropplets[i].move();
+    dropplets[i].displayBall();
   }
 }
 
@@ -118,7 +125,7 @@ class Paint { //the particles that come off the title
     this.y = mouseY;
     this.dx = random (-2, 2);
     this.dy = 10;
-    this.size = 10;
+    this.size = 20;
     this.colour = "yellow";
   }
   displayBall() {
@@ -128,10 +135,25 @@ class Paint { //the particles that come off the title
   }
 
   move() { //stop after momentum check
-    if (this.y < height - 10) {
+    if (this.y - this.size -10 < height) {
       this.x += this.dx;
       this.y += this.dy;
     } 
+  }
+  checkIfCollidingWith(otherBall) {
+    let sumOfRadii = this.size + otherBall.size;
+    let distanceBetweenCenters = dist(this.x, this.y, 
+                                      otherBall.x, otherBall.y);
+    if (sumOfRadii > distanceBetweenCenters) {
+
+      //react to collision
+      let tempDx = this.dx;
+      let tempDy = this.dy;
+      this.dx = otherBall.dx;
+      this.dy = otherBall.dy;
+      otherBall.dx = tempDx;
+      otherBall.dy = tempDy;
+    }
   }
 }
 
